@@ -40,7 +40,7 @@ if ($password_baru !== $konfirmasi_password) {
 $password_hash = password_hash($password_baru, PASSWORD_DEFAULT);
 
 // update password berdasarkan nohp
-$query = mysqli_query($conn, "UPDATE users SET password='$password_hash' WHERE nohp='$nohp'");
+$query = mysqli_query($conn, "UPDATE pelanggan SET password='$password_hash' WHERE no_hp='$nohp'");
 
 if ($query) {
     // hapus session reset
