@@ -5,7 +5,7 @@ include '../koneksi.php';
 $nohp = $_POST['nohp'];
 $password = $_POST['password'];
 
-$data = mysqli_query($conn, "SELECT * FROM users WHERE nohp='$nohp'");
+$data = mysqli_query($conn, "SELECT * FROM pelanggan WHERE no_hp='$nohp'");
 $user = mysqli_fetch_assoc($data);
 
 if($user){
