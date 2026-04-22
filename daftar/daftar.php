@@ -18,7 +18,7 @@ if ($password !== $konfirmasi) {
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
 //Cek no.hp apakah sudah ada atau belum
-$cek = mysqli_query($conn, "SELECT * FROM users WHERE nohp='$nohp'");
+$cek = mysqli_query($conn, "SELECT * FROM pelanggan WHERE no_hp='$nohp'");
 
 if (mysqli_num_rows($cek) > 0) {
     echo "<script>
@@ -26,7 +26,7 @@ if (mysqli_num_rows($cek) > 0) {
         window.location='index.php';
     </script>";
 } else {
-    mysqli_query($conn, "INSERT INTO users (nohp, password) VALUES ('$nohp', '$password_hash')");
+    mysqli_query($conn, "INSERT INTO pelanggan (no_hp, password) VALUES ('$nohp', '$password_hash')");
 
     echo "<script>
         alert('Pendaftaran berhasil!');
