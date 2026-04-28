@@ -1,121 +1,22 @@
 <?php
 session_start();
+include '../koneksi.php';
 
-/*
-|--------------------------------------------------------------------------
-| DATA PRODUK
-|--------------------------------------------------------------------------
-*/
-$products = [
-    [
-        'id' => 1,
-        'nama' => 'Mie Ayam Hijau Polos',
-        'harga' => 10000,
-        'gambar' => 'img/mie ayam polos.png',
-        'kategori' => 'populer',
-        'badge' => 'Best',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 2,
-        'nama' => 'Mie Ayam Hijau Ceker',
-        'harga' => 10000,
-        'gambar' => 'img/mie ayam ceker.jpeg',
-        'kategori' => 'populer',
-        'badge' => 'Promo',
-        'badge_class' => 'promo'
-    ],
-    [
-        'id' => 3,
-        'nama' => 'Mie Ayam Hijau Mentah',
-        'harga' => 12000,
-        'gambar' => 'img/mie ayam mentah.jpeg',
-        'kategori' => 'populer',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 4,
-        'nama' => 'Kerupuk',
-        'harga' => 1000,
-        'gambar' => 'img/kerupuk.jpg',
-        'kategori' => 'populer',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 5,
-        'nama' => 'Es Teh (Manis/Tawar)',
-        'harga' => 3000,
-        'gambar' => 'img/es teh manis.jpg',
-        'kategori' => 'minuman',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 6,
-        'nama' => 'Teh Hangat',
-        'harga' => 3000,
-        'gambar' => 'img/teh hangat.jpg',
-        'kategori' => 'minuman',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 7,
-        'nama' => 'Es Susu Coklat',
-        'harga' => 3000,
-        'gambar' => 'img/Es-Coklat.jpg',
-        'kategori' => 'minuman',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 8,
-        'nama' => 'Es Nutrisari Jeruk Peras',
-        'harga' => 3000,
-        'gambar' => 'img/es nutrisari.png',
-        'kategori' => 'minuman',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 9,
-        'nama' => 'Susu Hangat',
-        'harga' => 3000,
-        'gambar' => 'img/susu hangat.jpg',
-        'kategori' => 'minuman',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 10,
-        'nama' => 'Mie Ayam Hijau Polos',
-        'harga' => 10000,
-        'gambar' => 'img/mie ayam polos.png',
-        'kategori' => 'rekomendasi',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 11,
-        'nama' => 'Es Teh (Manis/Tawar)',
-        'harga' => 3000,
-        'gambar' => 'img/es teh manis.jpg',
-        'kategori' => 'rekomendasi',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-    [
-        'id' => 12,
-        'nama' => 'Kerupuk',
-        'harga' => 1000,
-        'gambar' => 'img/kerupuk.jpg',
-        'kategori' => 'rekomendasi',
-        'badge' => '',
-        'badge_class' => ''
-    ],
-];
+$data = mysqli_query ($conn, "SELECT menu.*, kategori.nama_kategori FROM menu
+                              JOIN kategori ON menu.id_kategori = kategori.id_kategori");
+
+$products = [];
+while($row = mysqli_fetch_assoc($data)) {
+  $products[] = [
+    'id' => $row['id_menu'],
+    'nama' => $row['nama_menu'],
+    'harga' => $row['harga'],
+    'gambar' => 'img/'. $row['gambar'],
+    'kategori' => $row['nama_kategori'],
+    'badge' => '',
+    'badge_class' => ''
+  ];
+}
 
 function rupiah($angka)
 {
@@ -145,13 +46,22 @@ foreach ($_SESSION['cart'] as $item) {
     $cartTotal += $item['harga'] * $item['qty'];
 }
 
-$ongkir = $cartTotal > 0 ? 25000 : 0;
+$ongkir = ($cartTotal < 50000 && $cartTotal > 0) ? 3000 : 0;
 $diskon = 0;
+//Total harga
 $grandTotal = $cartTotal - $diskon + $ongkir;
 
-$produkPopuler = filterProductsByCategory($products, 'populer');
+$produkMakanan = filterProductsByCategory($products, 'makanan');
 $produkMinuman = filterProductsByCategory($products, 'minuman');
-$produkRekomendasi = filterProductsByCategory($products, 'rekomendasi');
+$produkCampur = array_merge($produkMakanan, $produkMinuman);
+
+$produkCampur = array_filter($produkCampur, function ($item) {
+    return trim(strtolower($item['nama'])) !== trim(strtolower('Mie Ayam Hijau Mentah'));
+});
+
+$produkCampur = array_values($produkCampur); // penting biar index rapi
+shuffle($produkCampur);
+$produkRekomendasi = array_slice($produkCampur, 0, 3);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -694,7 +604,7 @@ $produkRekomendasi = filterProductsByCategory($products, 'rekomendasi');
           </div>
 
           <a href="profil.php" class="profile-menu-item">Kelola Akun</a>
-          <a href="../login/index.php" class="profile-menu-item logout">Keluar</a>
+          <a href="../login/logout.php" class="profile-menu-item logout">Keluar</a>
         </div>
       </div>
       </div>
@@ -719,16 +629,16 @@ $produkRekomendasi = filterProductsByCategory($products, 'rekomendasi');
         </section>
 
         <section class="product-section">
-          <h2 class="section-title">Kategori Populer <span>🤩</span></h2>
+          <h2 class="section-title">Makanan <span>🍜</span></h2>
           <div class="product-grid grid-4">
-            <?php foreach ($produkPopuler as $produk): ?>
+            <?php foreach ($produkMakanan as $produk): ?>
               <article class="product-card">
                 <?php if (!empty($produk['badge'])): ?>
                   <span class="badge-tag <?= $produk['badge_class']; ?>"><?= $produk['badge']; ?></span>
                 <?php endif; ?>
 
                 <div class="product-image">
-                  <img src="<?= $produk['gambar']; ?>" alt="<?= htmlspecialchars($produk['nama']); ?>" />
+                  <img src="<?= $produk['gambar']; ?>?v=<?= time(); ?>" alt="<?= htmlspecialchars($produk['nama']); ?>" />
                 </div>
 
                 <div class="product-info">
@@ -749,7 +659,7 @@ $produkRekomendasi = filterProductsByCategory($products, 'rekomendasi');
             <?php foreach ($produkMinuman as $produk): ?>
               <article class="product-card small-card">
                 <div class="product-image">
-                  <img src="<?= $produk['gambar']; ?>" alt="<?= htmlspecialchars($produk['nama']); ?>" />
+                  <img src="<?= $produk['gambar']; ?>?v=<?= time(); ?>" alt="<?= htmlspecialchars($produk['nama']); ?>" />
                 </div>
                 <div class="product-info">
                   <h3><?= htmlspecialchars($produk['nama']); ?></h3>
@@ -764,7 +674,7 @@ $produkRekomendasi = filterProductsByCategory($products, 'rekomendasi');
         </section>
 
         <section class="product-section recommend-section">
-          <h2 class="section-title recommendation-title"><strong>Rekomendasi</strong> <span>untuk kamu</span></h2>
+          <h2 class="section-title recommendation-title"><strong>Rekomendasi Hari Ini</strong> <span>pilihan terbaik</span></h2>
           <div class="recommend-layout">
             <?php foreach ($produkRekomendasi as $index => $produk): ?>
               <article class="product-card recommend-card <?= $index === 2 ? 'favorite-card' : ''; ?>">
@@ -775,7 +685,7 @@ $produkRekomendasi = filterProductsByCategory($products, 'rekomendasi');
                 <?php endif; ?>
 
                 <div class="product-image">
-                  <img src="<?= $produk['gambar']; ?>" alt="<?= htmlspecialchars($produk['nama']); ?>" />
+                  <img src="<?= $produk['gambar']; ?>?v=<?= time(); ?>" alt="<?= htmlspecialchars($produk['nama']); ?>" />
                 </div>
                 <div class="product-info">
                   <h3><?= htmlspecialchars($produk['nama']); ?></h3>
