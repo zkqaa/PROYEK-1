@@ -1,0 +1,156 @@
+/* ===== HEADER ===== */
+.content-card h1 {
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+/* ===== TOP SECTION ===== */
+.laporan-top {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* CARD */
+.lap-card {
+    background: #f1f3f5;
+    padding: 15px 20px;
+    border-radius: 10px;
+    min-width: 200px;
+}
+
+.lap-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.lap-card h3 {
+    margin-top: 5px;
+}
+
+/* FILTER */
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.filter input {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* BUTTON */
+.btn-export {
+    background: #1e73be;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-export:hover {
+    background: #155a94;
+}
+
+/* ===== TABLE ===== */
+.table-wrapper {
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+/* HEADER TABLE */
+thead {
+    background: #7cb342;
+    color: white;
+}
+
+thead th {
+    padding: 12px;
+    font-weight: 600;
+}
+
+/* BODY */
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* STATUS */
+.status {
+    background: #4caf50;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* BUTTON DETAIL */
+.btn-detail {
+    padding: 5px 10px;
+    border: 1px solid #999;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-detail:hover {
+    background: #f1f1f1;
+}
+
+/* MODAL BACKGROUND */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+/* BOX */
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 400px;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+/* CLOSE BUTTON */
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* GRID DETAIL */
+.detail-grid p {
+    margin: 10px 0;
+}
+
+/* ANIMASI */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
