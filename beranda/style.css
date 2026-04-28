@@ -341,15 +341,29 @@ button{
   box-shadow:0 6px 16px rgba(0,0,0,.08);
 }
 
-.product-image{
-  display:flex;
-  justify-content:center;  /* tengah horizontal */
-  align-items:center;      /* tengah vertical */
+.product-image {
+  width: 100%;
+  height: 206px;
+  background: #ddd;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.product-image{
-  height:206px;
-  background:#ddd;
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.product-card img {
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
 }
 
 .small-card .product-image{
