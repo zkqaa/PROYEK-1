@@ -56,9 +56,9 @@ $query = mysqli_query($koneksi, "
             </div>
 
             <nav class="menu-nav" style="margin-top:40px;">
-                <a href="#" class="menu-item">
+                <a href="../dashboard.php" class="menu-item">
                     <i class="fa-solid fa-house"></i>
-                    <span>Beranda</span>
+                    <span>Dashboard</span>
                 </a>
 
                 <a href="../menu.php" class="menu-item">

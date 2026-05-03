@@ -1,46 +1,31 @@
-const tabButtons = document.querySelectorAll('.tab-btn');
-const orderCards = document.querySelectorAll('.order-card');
-const navMenu = document.getElementById('navMenu');
-const navItems = navMenu.querySelectorAll('.nav-item');
-const navHighlight = navMenu.querySelector('.nav-highlight');
+document.addEventListener('DOMContentLoaded', function () {
+  const tabs = document.querySelectorAll('.tab-btn');
 
-function moveHighlight(target) {
-    if (!target) return;
-    navHighlight.style.width = target.offsetWidth + 'px';
-    navHighlight.style.left = target.offsetLeft + 'px';
-  }
+  function filterPesanan(statusAktif) {
+    const cards = document.querySelectorAll('.order-card');
 
-  window.addEventListener('load', function () {
-    const active = navMenu.querySelector('.nav-item.active');
-    moveHighlight(active);
-  });
+    cards.forEach(card => {
+      const statusCard = card.getAttribute('data-status');
 
-  navItems.forEach(item => {
-    item.addEventListener('mouseenter', function () {
-      moveHighlight(this);
-    });
-  });
-
-  navMenu.addEventListener('mouseleave', function () {
-    const active = navMenu.querySelector('.nav-item.active');
-    moveHighlight(active);
-  });
-
-tabButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    tabButtons.forEach((btn) => btn.classList.remove('active'));
-    button.classList.add('active');
-
-    const selectedTab = button.dataset.tab;
-
-    orderCards.forEach((card) => {
-      const status = card.dataset.status;
-
-      if (selectedTab === 'semua') {
+      // 🔴 ini yang penting
+      if (statusCard === statusAktif) {
         card.style.display = 'block';
       } else {
-        card.style.display = status === selectedTab ? 'block' : 'none';
+        card.style.display = 'none';
       }
     });
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+      tabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+
+      const status = this.getAttribute('data-tab');
+      filterPesanan(status);
+    });
   });
+
+  // default: hanya tampilkan status "semua"
+  filterPesanan('semua');
 });

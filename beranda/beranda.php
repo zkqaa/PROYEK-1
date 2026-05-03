@@ -581,7 +581,7 @@ $produkRekomendasi = array_slice($produkCampur, 0, 3);
         <a href="#" class="nav-item active">Beranda</a>
         <a href="#" class="nav-item">Rekomendasi</a>
         <a href="pesanan.php" class="nav-item">Pesanan</a>
-    </div>
+      </div>
 
       <div class="nav-icons">
         <a href="javascript:void(0)" class="cart-box" id="cartToggle" aria-label="Keranjang">

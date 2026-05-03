@@ -1,144 +1,218 @@
 <?php
 session_start();
 
-$nama = "Nama";
+if (!isset($_SESSION['password'])) {
+    $_SESSION['password'] = '123456';
+}
+
+$success = '';
+$error = '';
+
+if (isset($_POST['simpan_profile'])) {
+    $_SESSION['profile_saved'] = true;
+    $_SESSION['profile'] = [
+        'nama' => $_POST['nama'] ?? '',
+        'username' => $_POST['username'] ?? '',
+        'telepon' => $_POST['telepon'] ?? '',
+        'jk' => $_POST['jk'] ?? '',
+        'alamat' => $_POST['alamat'] ?? '',
+    ];
+
+    header("Location: profil.php");
+    exit;
+}
+
+if (isset($_POST['ubah_password'])) {
+    $old = $_POST['old_password'] ?? '';
+    $new = $_POST['new_password'] ?? '';
+    $confirm = $_POST['confirm_password'] ?? '';
+
+    if ($old !== $_SESSION['password']) {
+        $error = "Kata sandi lama salah!";
+    } elseif (strlen($new) < 4) {
+        $error = "Password minimal 4 karakter!";
+    } elseif ($new !== $confirm) {
+        $error = "Konfirmasi password tidak sama!";
+    } else {
+        $_SESSION['password'] = $new;
+        $success = "Password berhasil diubah!";
+    }
+}
+
+$page = $_GET['page'] ?? 'profile';
+$isEdit = isset($_GET['edit']);
+$isSaved = $_SESSION['profile_saved'] ?? false;
+
+$profile = $_SESSION['profile'] ?? [
+    'nama' => '',
+    'username' => '',
+    'telepon' => '',
+    'jk' => '',
+    'alamat' => '',
+];
+
+$namaSidebar = !empty($profile['nama']) ? $profile['nama'] : 'Nama';
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengaturan Profil</title>
-
-    <link rel="stylesheet" href="profil.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <meta charset="UTF-8">
+  <title>Profil Saya</title>
+  <link rel="stylesheet" href="profil.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
 <div class="profil-page">
-    <div class="profil-wrapper">
-
-        <!-- Sidebar -->
-        <aside class="profil-sidebar">
-            <div class="sidebar-avatar">
-                <div class="avatar-circle">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-            </div>
-
-            <div class="sidebar-name"><?= $nama; ?></div>
-
-            <div class="sidebar-edit">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <span>Ubah Profile</span>
-            </div>
-
-            <button class="sidebar-btn active">Profile</button>
-
-            <a href="#" class="sidebar-link">Ubah Kata Sandi</a>
-        </aside>
-
-        <!-- Content -->
-        <main class="profil-content">
-            <div class="profil-card">
-                <div class="back-header">
-                    <a href="beranda.php" class="back-btn">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        <span>Kembali</span>
-                    </a>
-                </div>
-                <h2 class="profil-title">Pengaturan</h2>
-
-                <div class="profil-header-bar">Profile Saya</div>
-                <p class="profil-desc">
-                    *Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun
-                </p>
-
-                <form action="" method="post" class="profil-form">
-                    <div class="form-row">
-                        <label>Username</label>
-                        <div class="form-input-group">
-                            <input type="text" name="username">
-                            <div class="action-icons">
-                                <button type="button" class="icon-btn edit">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button type="button" class="icon-btn delete">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <label>Nama</label>
-                        <div class="form-input-group">
-                            <input type="text" name="nama">
-                            <div class="action-icons">
-                                <button type="button" class="icon-btn edit">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button type="button" class="icon-btn delete">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <label>No Telepon</label>
-                        <div class="form-input-group">
-                            <input type="text" name="telepon">
-                            <div class="action-icons">
-                                <button type="button" class="icon-btn edit">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button type="button" class="icon-btn delete">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <label>Jenis Kelamin</label>
-                        <div class="gender-group">
-                            <label class="radio-item">
-                                <input type="radio" name="jk" value="Laki-laki">
-                                <span>Laki-laki</span>
-                            </label>
-
-                            <label class="radio-item">
-                                <input type="radio" name="jk" value="Perempuan">
-                                <span>Perempuan</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <label>Alamat</label>
-                        <div class="form-input-group textarea-group">
-                            <textarea name="alamat"></textarea>
-                            <div class="action-icons">
-                                <button type="button" class="icon-btn edit">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button type="button" class="icon-btn delete">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn-save">Simpan</button>
-                        <button type="reset" class="btn-cancel">Batal</button>
-                    </div>
-                </form>
-            </div>
-        </main>
-
+  <aside class="profil-sidebar">
+    <div class="avatar-circle">
+      <i class="fa-solid fa-user"></i>
     </div>
+
+    <div class="sidebar-name"><?= htmlspecialchars($namaSidebar); ?></div>
+
+    <a href="profil.php" class="sidebar-menu <?= $page === 'profile' ? 'active' : ''; ?>">Profile</a>
+
+    <a href="profil.php?page=password" class="sidebar-menu <?= $page === 'password' ? 'active' : ''; ?>">
+    Ubah Kata Sandi
+    </a>
+  </aside>
+
+  <main class="profil-main">
+    <a href="beranda.php" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i>
+      Kembali
+    </a>
+
+    <?php if ($page === 'password'): ?>
+
+      <section class="profile-form-card">
+        <h1>Ubah Kata Sandi</h1>
+        <p class="form-subtitle">Gunakan kata sandi yang kuat agar akun kamu tetap aman.</p>
+
+        <?php if ($error): ?>
+          <div class="alert error"><?= htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+
+        <?php if ($success): ?>
+          <div class="alert success"><?= htmlspecialchars($success); ?></div>
+        <?php endif; ?>
+
+        <form method="POST" class="profile-form">
+          <label>
+            Kata Sandi Lama
+            <input type="password" name="old_password" required>
+          </label>
+
+          <label>
+            Kata Sandi Baru
+            <input type="password" name="new_password" required>
+          </label>
+
+          <label>
+            Konfirmasi Kata Sandi Baru
+            <input type="password" name="confirm_password" required>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" name="ubah_password" class="btn-save">Simpan</button>
+            <a href="profil.php" class="btn-cancel">Batal</a>
+          </div>
+        </form>
+      </section>
+
+    <?php elseif ($isSaved && !$isEdit): ?>
+
+      <section class="profile-view-card">
+        <div class="profile-cover"></div>
+
+        <div class="profile-view-header">
+          <div class="profile-avatar-big">
+            <i class="fa-solid fa-user"></i>
+          </div>
+
+          <div class="profile-name-box">
+            <h1><?= htmlspecialchars($profile['nama']); ?></h1>
+            <p>@<?= htmlspecialchars($profile['username']); ?></p>
+          </div>
+
+          <a href="profil.php?edit=1" class="edit-main-btn">
+            <i class="fa-regular fa-pen-to-square"></i>
+            Edit Profil
+          </a>
+        </div>
+
+        <div class="profile-info-grid">
+          <div class="info-card">
+            <span>Username</span>
+            <strong><?= htmlspecialchars($profile['username']); ?></strong>
+          </div>
+
+          <div class="info-card">
+            <span>No Telepon</span>
+            <strong><?= htmlspecialchars($profile['telepon']); ?></strong>
+          </div>
+
+          <div class="info-card">
+            <span>Jenis Kelamin</span>
+            <strong><?= htmlspecialchars($profile['jk']); ?></strong>
+          </div>
+
+          <div class="info-card wide">
+            <span>Alamat</span>
+            <strong><?= htmlspecialchars($profile['alamat']); ?></strong>
+          </div>
+        </div>
+      </section>
+
+    <?php else: ?>
+
+      <section class="profile-form-card">
+        <h1>Pengaturan Profil</h1>
+        <p class="form-subtitle">Lengkapi data profil agar akun kamu lebih mudah dikenali.</p>
+
+        <form method="POST" class="profile-form">
+          <label>
+            Username
+            <input type="text" name="username" value="<?= htmlspecialchars($profile['username']); ?>" required>
+          </label>
+
+          <label>
+            Nama
+            <input type="text" name="nama" value="<?= htmlspecialchars($profile['nama']); ?>" required>
+          </label>
+
+          <label>
+            No Telepon
+            <input type="text" name="telepon" value="<?= htmlspecialchars($profile['telepon']); ?>">
+          </label>
+
+          <div class="gender-box">
+            <span>Jenis Kelamin</span>
+            <label>
+              <input type="radio" name="jk" value="Laki-laki" <?= $profile['jk'] === 'Laki-laki' ? 'checked' : ''; ?>>
+              Laki-laki
+            </label>
+            <label>
+              <input type="radio" name="jk" value="Perempuan" <?= $profile['jk'] === 'Perempuan' ? 'checked' : ''; ?>>
+              Perempuan
+            </label>
+          </div>
+
+          <label>
+            Alamat
+            <textarea name="alamat"><?= htmlspecialchars($profile['alamat']); ?></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" name="simpan_profile" class="btn-save">Simpan</button>
+            <a href="profil.php" class="btn-cancel">Batal</a>
+          </div>
+        </form>
+      </section>
+
+    <?php endif; ?>
+  </main>
 </div>
 
 </body>

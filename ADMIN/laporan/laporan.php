@@ -39,7 +39,7 @@ $totalPesanan = $stats['total_pesanan'] ?? 0;
                 </div>
             </div>
             <nav class="menu-nav" style="margin-top:40px;">
-                <a href="#" class="menu-item"><i class="fa-solid fa-house"></i><span>Beranda</span></a>
+                <a href="../dashboard.php" class="menu-item"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
                 <a href="../menu.php" class="menu-item"><i class="fa-solid fa-utensils"></i><span>Menu</span></a>
                 <a href="../pesanan/pesanan.php" class="menu-item"><i class="fa-solid fa-basket-shopping"></i><span>Pesanan</span></a>
                 <a href="laporan.php" class="menu-item active"><i class="fa-regular fa-file-lines"></i><span>Laporan</span></a>
