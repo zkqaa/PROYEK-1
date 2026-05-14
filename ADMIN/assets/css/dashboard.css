@@ -1,0 +1,598 @@
+/* =========================
+   DASHBOARD.CSS
+   Khusus isi dashboard
+   Sidebar tetap dari style.css
+========================= */
+
+.dashboard-content {
+    flex: 1;
+    padding: 28px 24px;
+    background:
+        radial-gradient(circle at top right, rgba(140,198,63,0.08), transparent 18%),
+        radial-gradient(circle at bottom left, rgba(84,164,227,0.06), transparent 18%),
+        #f6f7f9;
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+.dashboard-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* =========================
+   HERO GRID
+========================= */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: stretch;
+}
+
+.income-card,
+.sales-chart-card {
+    min-height: 220px;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* income card */
+.income-card {
+    padding: 28px 32px;
+    background: linear-gradient(135deg, #174d22, #4e8f28);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.income-text {
+    z-index: 2;
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    margin-bottom: 14px;
+}
+
+.income-text p {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.income-text h2 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    word-break: break-word;
+}
+
+.income-text span {
+    font-size: 13px;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+/* chart card */
+.sales-chart-card {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 24px 28px;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+}
+
+.chart-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.chart-header p {
+    color: #888;
+    font-size: 13px;
+}
+
+.chart-report-btn {
+    border: none;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.chart-report-btn:hover { background: #d2f0d5; }
+
+.chart-content {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    gap: 16px;
+    align-items: center;
+}
+
+.chart-box {
+    height: 140px;
+}
+
+#salesChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.chart-info {
+    background: #f5faf1;
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+}
+
+.chart-info span {
+    color: #777;
+    font-size: 12px;
+    display: block;
+}
+
+.chart-info h3 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-top: 4px;
+}
+
+/* =========================
+   STATISTIK — 4 KOLOM
+========================= */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    min-width: 0;
+}
+
+.stat-card i {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.stat-card.green i  { background: #edf8e7; color: #4e9829; }
+.stat-card.orange i { background: #fff1df; color: #ff7a1a; }
+.stat-card.blue i   { background: #e8f5ff; color: #2387c9; }
+.stat-card.purple i { background: #f2eafd; color: #8664c7; }
+
+.stat-card div {
+    min-width: 0;
+    flex: 1;
+}
+
+.stat-card p {
+    font-weight: 700;
+    font-size: 13px;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stat-card h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 3px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stat-card span {
+    font-size: 12px;
+    color: #888;
+}
+
+/* =========================
+   PANEL BAWAH (Orders + Menu)
+========================= */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 20px;
+    align-items: start;
+}
+
+.panel {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.panel-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.panel-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.panel-actions button {
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    border-radius: 12px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.2s;
+}
+
+.panel-actions button:hover { background: #f5f5f5; }
+
+/* =========================
+   TABLE ORDERS
+========================= */
+.orders-panel {
+    overflow: hidden;
+}
+
+.orders-panel table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-panel thead tr {
+    background: #78b13a;
+}
+
+.orders-panel th {
+    color: #fff;
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.orders-panel td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.order-id {
+    background: #e9f7e4;
+    color: #31802f;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 700;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.status-baru    { background: #3498db; }
+.status-proses  { background: #f1c40f; color: #333; }
+.status-terima,
+.status-selesai { background: #2ecc71; }
+.status-tolak   { background: #e74c3c; }
+
+.aksi-dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-aksi {
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    border-radius: 7px;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+.btn-aksi:hover { opacity: 0.82; }
+.btn-terima { background: #2ecc71; }
+.btn-tolak  { background: #e74c3c; }
+.btn-detail { background: #95a5a6; }
+
+.lihat-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 16px;
+}
+
+.lihat-semua {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    border: 1px solid #c8e6c9;
+    transition: 0.2s;
+}
+.lihat-semua:hover {
+    background: #2e7d32;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   MENU TERLARIS
+========================= */
+.menu-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-panel .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f2f2f2;
+    text-decoration: none;
+    color: #222;
+}
+
+.menu-panel .menu-item:last-child { border-bottom: none; }
+
+.menu-panel .menu-item img {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.menu-panel .menu-item div {
+    flex: 1;
+    min-width: 0;
+}
+
+.menu-panel .menu-item h4 {
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-panel .menu-item p {
+    font-size: 12px;
+    color: #4e9829;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.menu-panel .menu-item span {
+    background: #e8f7df;
+    color: #3f8e28;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.menu-panel .menu-item:hover {
+    background: transparent;
+}
+
+.btn-lihat {
+    background: linear-gradient(135deg, #8bc34a, #6da837);
+    color: #fff;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(139,195,74,0.3);
+    white-space: nowrap;
+}
+.btn-lihat:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(139,195,74,0.4); }
+
+/* =========================
+   MODAL MENU TERLARIS
+========================= */
+.modal-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-menu-content {
+    width: 500px;
+    max-width: 94vw;
+    max-height: 80vh;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+}
+
+.modal-menu-header {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-right: 0;
+}
+
+.modal-menu-header h2 {
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.modal-menu-list {
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.modal-menu-list::-webkit-scrollbar { width: 5px; }
+.modal-menu-list::-webkit-scrollbar-thumb { background: #c8e6c9; border-radius: 10px; }
+
+.modal-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 12px;
+    background: #f9faf9;
+    margin-bottom: 8px;
+}
+
+.modal-menu-item img {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.modal-menu-item div { flex: 1; min-width: 0; }
+.modal-menu-item h4 { font-size: 14px; font-weight: 700; margin: 0; }
+.modal-menu-item p  { font-size: 12px; color: #777; margin-top: 2px; }
+
+.modal-menu-item span {
+    background: #e6f4dc;
+    color: #2e7d32;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.modal-close {
+    border: none;
+    background: #f1f3f5;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+.modal-close:hover { background: #e53935; color: #fff; }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1280px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+    .hero-grid,
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    .chart-content {
+        grid-template-columns: 1fr;
+    }
+    .chart-info { margin-bottom: 0; }
+}
+
+@media (max-width: 768px) {
+    .dashboard-content { padding: 16px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .income-card { padding: 22px; }
+    .orders-panel { overflow-x: auto; }
+    .orders-panel table { min-width: 600px; }
+}
+
+@media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr; }
+}

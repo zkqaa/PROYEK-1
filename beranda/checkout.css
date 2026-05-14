@@ -1,0 +1,478 @@
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f7f7f7;
+    color:#222;
+}
+
+.checkout-wrapper{
+    max-width:640px;
+    margin:30px auto;
+    padding:0 15px 40px;
+}
+
+.checkout-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:20px;
+    text-decoration:none;
+    color:#222;
+    transition:all 0.2s ease;
+}
+
+/* Hover efek */
+.checkout-title:hover{
+    color:#28a745;
+    transform:translateX(-2px);
+}
+
+/* Icon panah */
+.checkout-title i{
+    font-size:20px;
+}
+
+.checkout-title:active{
+    transform:scale(0.97);
+}
+
+.back-btn{
+    color:#222;
+    text-decoration:none;
+    font-size:20px;
+}
+
+.checkout-card{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+.checkout-card-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.checkout-card-header h3{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+    color:#333;
+}
+
+.icon-box{
+    font-size:20px;
+}
+
+.empty-order{
+    text-align:center;
+    color:#777;
+    padding:20px 0;
+}
+
+.order-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.order-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding-bottom:14px;
+    border-bottom:1px solid #eee;
+}
+
+.order-item:last-child{
+    border-bottom:none;
+    padding-bottom:0;
+}
+
+.order-item img{
+    width:64px;
+    height:64px;
+    object-fit:cover;
+    border-radius:10px;
+    flex-shrink:0;
+}
+
+.order-info{
+    flex:1;
+}
+
+.order-info h4{
+    margin:0 0 4px;
+    font-size:15px;
+    font-weight:700;
+    color:#222;
+}
+
+.order-info p{
+    margin:0 0 8px;
+    color:#666;
+    font-size:14px;
+}
+
+.order-qty{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.qty-btn{
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:none;
+  border-radius:50%;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all 0.2s ease;
+}
+
+/* tombol minus */
+.qty-btn[data-action="minus"]{
+  background:#f1f1f1;
+  color:#555;
+}
+
+/* tombol plus */
+.qty-btn[data-action="plus"]{
+  background:#28a745;
+  color:#fff;
+  box-shadow:0 3px 8px rgba(40,167,69,0.3);
+}
+
+/* hover */
+.qty-btn:hover{
+  transform:scale(1.1);
+}
+
+/* klik */
+.qty-btn:active{
+  transform:scale(0.9);
+}
+
+/* angka qty */
+.order-qty strong{
+  min-width:20px;
+  text-align:center;
+  font-size:15px;
+  font-weight:700;
+  color:#333;
+}
+
+@keyframes bounce{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.25);}
+  100%{transform:scale(1);}
+}
+
+.qty-btn.bounce{
+  animation:bounce 0.2s;
+}
+
+.delete-btn{
+    color:#999;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    padding-top:4px;
+    font-size:16px;
+}
+
+.delete-btn:hover{
+    color:#d33;
+}
+
+.add-more-box{
+    margin-top:14px;
+    border:1px solid #eee;
+    border-radius:10px;
+    padding:12px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    background:#fafafa;
+}
+
+.add-more-box small{
+    color:#555;
+    font-size:12px;
+}
+
+.add-more-box span{
+    color:#aaa;
+    font-size:11px;
+}
+
+.add-more-btn{
+  text-decoration:none;
+  background:linear-gradient(135deg, #28a745, #5cd65c);
+  color:#fff;
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:all 0.25s ease;
+  box-shadow:0 4px 10px rgba(40,167,69,0.25);
+}
+
+/* Hover */
+.add-more-btn:hover{
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 6px 16px rgba(40,167,69,0.35);
+}
+
+/* Klik */
+.add-more-btn:active{
+  transform:scale(0.95);
+  box-shadow:inset 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* Fokus */
+.add-more-btn:focus{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(40,167,69,0.25);
+}
+
+.add-more-btn{
+  animation:popIn 0.4s ease;
+}
+
+@keyframes popIn{
+  from{
+    opacity:0;
+    transform:scale(0.8);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.payment-card .payment-row,
+.payment-total{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    margin-bottom:10px;
+    color:#444;
+}
+
+.payment-card hr{
+    border:none;
+    border-top:1px solid #eee;
+    margin:12px 0;
+}
+
+.payment-total{
+    margin-bottom:0;
+    color:#111;
+}
+
+.confirm-box{
+    margin:18px 0 14px;
+    font-size:14px;
+}
+
+.confirm-box span{
+    color:red;
+}
+
+.confirm-box small{
+    color:#777;
+}
+
+.buy-btn{
+    width:100%;
+    border:none;
+    padding:14px;
+    border-radius:25px;
+    font-size:16px;
+    font-weight:700;
+    cursor:not-allowed;
+    background:#ccc;
+    color:#777;
+    transition:all 0.25s ease;
+}
+
+/* saat aktif */
+.buy-btn.active{
+    background:#14863a;
+    color:#fff;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(20,134,58,0.3);
+}
+
+/* hover kalau aktif */
+.buy-btn.active:hover{
+    transform:translateY(-2px);
+}
+
+/* efek klik */
+.buy-btn.active:active{
+    transform:scale(0.96);
+}
+
+.alamat-card{
+    padding:18px;
+}
+
+.alamat-header{
+    justify-content:space-between;
+}
+
+.alamat-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.alamat-left h3{
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+}
+
+.alamat-left small{
+    color:#777;
+    font-size:12px;
+}
+
+.ganti-btn{
+  border:2px solid #28a745;
+  color:#28a745;
+  background:#fff;
+  padding:6px 16px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+
+/* Hover */
+.ganti-btn:hover{
+  background:#28a745;
+  color:#fff;
+  box-shadow:0 4px 12px rgba(40,167,69,0.3);
+  transform:translateY(-1px);
+}
+
+/* Klik */
+.ganti-btn:active{
+  transform:scale(0.95);
+  box-shadow:0 2px 6px rgba(0,0,0,0.2) inset;
+}
+
+/* Fokus (biar aksesibel) */
+.ganti-btn:focus{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(40,167,69,0.2);
+}
+
+.ganti-btn{
+  animation:fadeInBtn 0.4s ease;
+}
+
+@keyframes fadeInBtn{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.alamat-info{
+    margin-top:10px;
+}
+
+.alamat-info .nama{
+    font-size:13px;
+    margin:0 0 6px;
+}
+
+.alamat-text{
+    font-size:13px;
+    color:#666;
+    margin:0;
+    line-height:1.5;
+}
+
+.map-box{
+    margin:12px 0;
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid #e5e5e5;
+}
+
+.map-box iframe{
+    width:100%;
+    height:170px;
+    border:0;
+    display:block;
+}
+
+.input-group{
+    margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.input-group label{
+    font-size:12px;
+    color:#555;
+}
+
+.input-group input,
+.input-group textarea{
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:8px 10px;
+    font-size:13px;
+    outline:none;
+    font-family:inherit;
+}
+
+.input-group textarea{
+    resize:none;
+    min-height:70px;
+}
+
+body {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+body.page-loaded {
+    opacity: 1;
+}
+
+body.page-leaving {
+    opacity: 0;
+}
