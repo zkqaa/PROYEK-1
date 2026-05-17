@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../koneksi.php";
 
 $query = mysqli_query($koneksi, "
@@ -44,11 +45,11 @@ $query = mysqli_query($koneksi, "
                 <div class="admin-dropdown" id="adminDropdown">
                     <div class="admin-dropdown-avatar"><i class="fa-solid fa-user"></i></div>
                     <a href="kelola_akun.php">Kelola Akun</a>
-                    <a href="logout.php" class="logout">Keluar</a>
+                    <a href="../login/logout.php" class="logout">Keluar</a>
                 </div>
                 <div class="admin-avatar"><i class="fa-solid fa-user"></i></div>
                 <div class="admin-info">
-                    <h4>Admin</h4>
+                    <h4><?= $_SESSION['nama_lengkap'] ?? 'Admin'; ?></h4>
                     <p>Administrator</p>
                 </div>
                 <i class="fa-solid fa-chevron-down admin-arrow" id="adminArrow"></i>

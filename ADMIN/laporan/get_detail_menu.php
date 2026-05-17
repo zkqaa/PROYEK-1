@@ -3,7 +3,7 @@ include "../../koneksi.php";
 
 $id = $_GET['id'];
 
-$query = mysqli_query($conn, "SELECT dp.*, m.nama_menu, m.harga
+$query = mysqli_query($koneksi, "SELECT dp.*, m.nama_menu, m.harga
                                 FROM detail_pesanan dp
                                 JOIN menu m
                                 ON dp.id_menu = m.id_menu

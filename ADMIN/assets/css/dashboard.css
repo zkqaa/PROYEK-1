@@ -34,14 +34,14 @@
 
 .income-card,
 .sales-chart-card {
-    min-height: 220px;
+    min-height: 110px;
     border-radius: 18px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
 
 /* income card */
 .income-card {
-    padding: 28px 32px;
+    padding: 22px 26px;
     background: linear-gradient(135deg, #174d22, #4e8f28);
     color: #fff;
     display: flex;
@@ -87,7 +87,7 @@
 .sales-chart-card {
     background: #fff;
     border: 1px solid #eee;
-    padding: 24px 28px;
+    padding: 20px 24px;
 }
 
 .chart-header {
@@ -131,7 +131,7 @@
 }
 
 .chart-box {
-    height: 140px;
+    height: 110px;
 }
 
 #salesChart {

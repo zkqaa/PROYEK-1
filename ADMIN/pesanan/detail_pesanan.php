@@ -3,15 +3,15 @@ include "../../koneksi.php";
 
 $id = $_GET['id'];
 
-$query = mysqli_query($conn, "SELECT p.*, pel.nama_pelanggan, pel.no_hp
-                                FROM pesanan p
-                                JOIN pelanggan pel
-                                ON p.id_pelanggan = pel.id_pelanggan
-                                WHERE p.id_pesanan = '$id'");
+$query = mysqli_query($koneksi, "
+    SELECT * 
+    FROM pesanan
+    WHERE id_pesanan = '$id'
+");
 
 $data = mysqli_fetch_assoc($query);
 
-$detailQuery = mysqli_query($conn, "SELECT dp.*, m.nama_menu, m.gambar, m.harga
+$detailQuery = mysqli_query($koneksi, "SELECT dp.*, m.nama_menu, m.gambar, m.harga
                                         FROM detail_pesanan dp
                                         JOIN menu m ON dp.id_menu = m.id_menu
                                         WHERE dp.id_pesanan = '$id'");
@@ -68,10 +68,10 @@ $detailQuery = mysqli_query($conn, "SELECT dp.*, m.nama_menu, m.gambar, m.harga
                     </div>
                     <div class="card-body">
                         <p class="label-detail">Nama Pelanggan</p>
-                        <p class="value-detail"><?= $data['nama_pelanggan'] ?? '-'; ?></p>
+                        <p class="value-detail"><?= $data['nama_lengkap'] ?? '-'; ?></p>
 
                         <p class="label-detail">No. HP</p>
-                        <p class="value-detail"><?= $data['no_hp']; ?></p>
+                        <p class="value-detail"><?= $data['no_hp'] ?? '-'; ?></p>
 
                         <p class="label-detail">Alamat Pengiriman</p>
                         <p class="value-detail"><?= $data['alamat_pengiriman']; ?></p>
@@ -140,14 +140,14 @@ $detailQuery = mysqli_query($conn, "SELECT dp.*, m.nama_menu, m.gambar, m.harga
                         <div class="d-flex justify-content-between mb-2">
                             <span>Subtotal</span>
                             <strong>
-                                Rp <?= number_format($data['total_harga'] - $data['ongkir'], 0, ',', '.'); ?>
+                                Rp <?= number_format($data['total_harga'], 0, ',', '.'); ?>
                             </strong>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2">
                             <span>Ongkir</span>
                             <strong>
-                                Rp <?= number_format($data['ongkir'], 0, ',', '.'); ?>
+                                Rp <?= number_format($data['ongkir'] ?? 0, 0, ',', '.'); ?>
                             </strong>
                         </div>
 

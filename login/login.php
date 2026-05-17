@@ -43,7 +43,7 @@ if (isset($_POST['nohp'])) {
 
             // simpan session
             $_SESSION['id_user']  = $user['id_user'];
-            $_SESSION['username'] = $user['nama_lengkap'];
+            $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
             $_SESSION['role']     = $user['role'];
 
             // redirect berdasarkan role

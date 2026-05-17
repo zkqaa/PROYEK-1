@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "koneksi.php";
+include "../koneksi.php";
 
 /* TAMBAH USER */
 if(isset($_POST['tambah_admin'])){
@@ -19,7 +19,7 @@ if(isset($_POST['tambah_admin'])){
         ('$nama','$nohp','$password','$alamat','$email','$role')
     ");
 
-    header("Location: settings.php");
+    header("Location: kelola_akun.php");
     exit;
 }
 
@@ -33,7 +33,7 @@ if(isset($_GET['hapus'])){
         WHERE id_user='$id'
     ");
 
-    header("Location: settings.php");
+    header("Location: kelola_akun.php");
     exit;
 }
 
@@ -48,7 +48,7 @@ if(isset($_GET['nonaktif'])){
         WHERE id_user='$id'
     ");
 
-    header("Location: settings.php");
+    header("Location: kelola_akun.php");
     exit;
 }
 
@@ -63,7 +63,7 @@ if(isset($_GET['aktif'])){
         WHERE id_user='$id'
     ");
 
-    header("Location: settings.php");
+    header("Location: kelola_akun.php");
     exit;
 }
 
@@ -91,7 +91,7 @@ if(isset($_POST['edit_admin'])){
         WHERE id_user='$id'
     ");
 
-    header("Location: settings.php");
+    header("Location: kelola_akun.php");
     exit;
 }
 
@@ -690,7 +690,7 @@ td{
                 <?php if($admin['status'] == 'aktif'): ?>
 
                     <a 
-                        href="settings.php?nonaktif=<?= $admin['id_user']; ?>"
+                        href="kelola_akun.php?nonaktif=<?= $admin['id_user']; ?>"
                         onclick="return confirm('Nonaktifkan user ini?')"
                         class="status-btn aktif"
                     >
@@ -700,7 +700,7 @@ td{
                 <?php else: ?>
 
                     <a 
-                        href="settings.php?aktif=<?= $admin['id_user']; ?>"
+                        href="kelola_akun.php?aktif=<?= $admin['id_user']; ?>"
                         onclick="return confirm('Aktifkan user ini?')"
                         class="status-btn nonaktif"
                     >
@@ -730,7 +730,7 @@ td{
                             <i class="fa-solid fa-pen"></i>
                         </button>
 
-                        <a href="settings.php?hapus=<?= $admin['id_user']; ?>" onclick="return confirm('Yakin ingin menghapus user ini?')">
+                        <a href="kelola_akun.php?hapus=<?= $admin['id_user']; ?>" onclick="return confirm('Yakin ingin menghapus user ini?')">
 
                             <button class="btn-delete" type="button">
                                 <i class="fa-solid fa-trash"></i>

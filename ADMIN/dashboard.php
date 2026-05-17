@@ -1,5 +1,8 @@
 <?php
+session_start();
+
 include "../koneksi.php";
+
 $page = "beranda";
 
 /* STATISTIK */
@@ -78,7 +81,7 @@ $queryGrafik = mysqli_query($koneksi, "
         DATE(tanggal) AS tanggal,
         SUM(total_harga) AS total
     FROM pesanan
-    WHERE status != 'Ditolak'
+    WHERE status != 'Dibatalkan'
     GROUP BY DATE(tanggal)
     ORDER BY tanggal ASC
     LIMIT 7
@@ -145,23 +148,22 @@ while ($grafik = mysqli_fetch_assoc($queryGrafik)) {
                 </nav>
             </div>
 
-            <div class="sidebar-footer">
-                <div class="admin-box" onclick="toggleAdminDropdown()">
-                    <div class="admin-dropdown" id="adminDropdown">
-                        <div class="admin-dropdown-avatar"><i class="fa-solid fa-user"></i></div>
-                        <a href="kelola_akun.php">Kelola Akun</a>
-                        <a href="logout.php" class="logout">Keluar</a>
-                    </div>
-                    <div class="admin-avatar">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="admin-info">
-                        <h4>Admin</h4>
-                        <p>Administrator</p>
-                    </div>
-                    <i class="fa-solid fa-chevron-down admin-arrow" id="adminArrow"></i>
+        <div class="sidebar-footer">
+            <div class="admin-box" onclick="toggleAdminDropdown()">
+                <!-- Dropdown -->
+                <div class="admin-dropdown" id="adminDropdown">
+                    <div class="admin-dropdown-avatar"><i class="fa-solid fa-user"></i></div>
+                    <a href="kelola_akun.php">Kelola Akun</a>
+                    <a href="../login/logout.php" class="logout">Keluar</a>
                 </div>
+                <div class="admin-avatar"><i class="fa-solid fa-user"></i></div>
+                <div class="admin-info">
+                    <h4><?= $_SESSION['nama_lengkap'] ?? 'Admin'; ?></h4>
+                    <p>Administrator</p>
+                </div>
+                <i class="fa-solid fa-chevron-down admin-arrow" id="adminArrow"></i>
             </div>
+        </div>
 
             <div class="leaf-decor">
                 <span class="leaf leaf1"></span>
@@ -176,18 +178,31 @@ while ($grafik = mysqli_fetch_assoc($queryGrafik)) {
             <section class="dashboard-card">
 
                 <section class="hero-grid">
+
+                    <!-- TOTAL PENDAPATAN -->
                     <div class="income-card">
-                        <div class="income-text">
-                            <div class="icon-circle">
+                        <div class="income-overlay"></div>
+
+                        <div class="income-content">
+                            <div class="income-icon">
                                 <i class="ri-wallet-3-fill"></i>
                             </div>
-                            <p>Total Pendapatan</p>
-                            <h2>Rp <?= number_format($totalPendapatan, 0, ',', '.'); ?></h2>
-                            <span>Total pendapatan dari pesanan yang tidak dibatalkan.</span>
+
+                            <p class="income-title">Total Pendapatan</p>
+
+                            <h2>
+                                Rp <?= number_format($totalPendapatan, 0, ',', '.'); ?>
+                            </h2>
+
+                            <span>
+                                Total pendapatan dari pesanan yang tidak dibatalkan.
+                            </span>
                         </div>
                     </div>
 
+                    <!-- CHART -->
                     <div class="sales-chart-card">
+
                         <div class="chart-header">
                             <div>
                                 <h2>Chart Order</h2>
@@ -200,17 +215,21 @@ while ($grafik = mysqli_fetch_assoc($queryGrafik)) {
                             </button>
                         </div>
 
-                        <div class="chart-content">
-                            <div class="chart-box">
+                        <div class="chart-wrapper">
+
+                            <div class="chart-canvas">
                                 <canvas id="salesChart"></canvas>
                             </div>
 
-                            <div class="chart-info">
+                            <div class="chart-side">
                                 <span>Total Order</span>
                                 <h3><?= $totalPesanan; ?></h3>
                             </div>
+
                         </div>
+
                     </div>
+
                 </section>
 
                 <section class="stats">

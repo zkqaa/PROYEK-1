@@ -8,21 +8,26 @@ $hingga = isset($_GET['hingga']) ? $_GET['hingga'] : '';
 // Bangun query dengan filter tanggal opsional
 $where = "WHERE 1=1";
 if (!empty($dari)) {
-    $dari_aman = mysqli_real_escape_string($conn, $dari);
+    $dari_aman = mysqli_real_escape_string($koneksi, $dari);
     $where .= " AND DATE(p.tanggal) >= '$dari_aman'";
 }
 if (!empty($hingga)) {
-    $hingga_aman = mysqli_real_escape_string($conn, $hingga);
+    $hingga_aman = mysqli_real_escape_string($koneksi, $hingga);
     $where .= " AND DATE(p.tanggal) <= '$hingga_aman'";
 }
 
-$query = "SELECT p.id_pesanan, pel.nama_pelanggan AS nama, p.status,
-                 p.total_harga, p.tanggal, p.waktu_selesai
+$query = "SELECT 
+            p.id_pesanan,
+            u.nama_lengkap AS nama,
+            p.status,
+            p.total_harga,
+            p.tanggal,
+            p.waktu_selesai
           FROM pesanan p
-          JOIN pelanggan pel ON p.id_pelanggan = pel.id_pelanggan
+          JOIN users u ON p.id_pelanggan = u.id_user
           $where
           ORDER BY p.tanggal DESC";
-$result = mysqli_query($conn, $query);
+$result = mysqli_query($koneksi, $query);
 
 // Nama file ekspor
 $namaFile = 'Laporan_Pesanan';

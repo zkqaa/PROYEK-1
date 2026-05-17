@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../../koneksi.php";
 
 $cari   = isset($_GET['cari']) ? trim($_GET['cari']) : '';
@@ -9,29 +10,26 @@ $tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : '';
 $where = " WHERE 1=1 ";
 
 if ($cari != '') {
-    $cari_aman = mysqli_real_escape_string($conn, $cari);
-    $where .= " AND (p.id_pesanan LIKE '%$cari_aman%' OR pel.nama_pelanggan LIKE '%$cari_aman%') ";
+    $cari_aman = mysqli_real_escape_string($koneksi, $cari);
+    $where .= " AND p.id_pesanan LIKE '%$cari_aman%' ";
 }
 
 if ($status != '' && $status != 'Semua') {
-    $status_aman = mysqli_real_escape_string($conn, $status);
+    $status_aman = mysqli_real_escape_string($koneksi, $status);
     $where .= " AND p.status = '$status_aman' ";
 }
 
 if ($tanggal_awal != '' && $tanggal_akhir != '') {
-
     $where .= " AND DATE(p.tanggal)
                 BETWEEN '$tanggal_awal'
                 AND '$tanggal_akhir'";
 }
 
-$query = mysqli_query($conn, "SELECT p.*, pel.nama_pelanggan 
-                        FROM pesanan p
-                        JOIN pelanggan pel 
-                        ON p.id_pelanggan = pel.id_pelanggan
-
-                        $where
-                        ORDER BY p.id_pesanan DESC
+$query = mysqli_query($koneksi, "
+    SELECT * 
+    FROM pesanan p
+    $where
+    ORDER BY p.id_pesanan DESC
 ");
 ?>
 <!DOCTYPE html>
@@ -76,7 +74,7 @@ $query = mysqli_query($conn, "SELECT p.*, pel.nama_pelanggan
                         <span>Menu</span>
                     </a>
 
-                    <a href="index.php" class="menu-item active">
+                    <a href="pesanan.php" class="menu-item active">
                         <i class="fa-solid fa-basket-shopping"></i>
                         <span>Pesanan</span>
                     </a>
@@ -93,13 +91,13 @@ $query = mysqli_query($conn, "SELECT p.*, pel.nama_pelanggan
                     <div class="admin-dropdown" id="adminDropdown">
                         <div class="admin-dropdown-avatar"><i class="fa-solid fa-user"></i></div>
                         <a href="../kelola_akun.php">Kelola Akun</a>
-                        <a href="../logout.php" class="logout">Keluar</a>
+                        <a href="../../login/logout.php" class="logout">Keluar</a>
                     </div>
                     <div class="admin-avatar">
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="admin-info">
-                        <h4>Admin</h4>
+                        <h4><?= $_SESSION['nama_lengkap'] ?? 'Admin'; ?></h4>
                         <p>Administrator</p>
                     </div>
                     <i class="fa-solid fa-chevron-down admin-arrow" id="adminArrow"></i>

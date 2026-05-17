@@ -1,27 +1,26 @@
 <?php
+session_start();
 include "../../koneksi.php";
 
 $dari   = isset($_GET['dari']) ? $_GET['dari'] : '';
 $hingga = isset($_GET['hingga']) ? $_GET['hingga'] : '';
 
 // Ambil data dari database (Gunakan JOIN untuk mendapatkan nama pelanggan)
-$query = "SELECT p.*, pel.nama_pelanggan AS nama 
-          FROM pesanan p 
-          JOIN pelanggan pel ON p.id_pelanggan = pel.id_pelanggan ";
+$query = "SELECT * FROM pesanan ";
 
 if ($dari != '' && $hingga != '') {
 
-    $query .= "WHERE DATE(p.tanggal)
+    $query .= "WHERE DATE(tanggal)
                BETWEEN '$dari'
                AND '$hingga' ";
 }
 
-$query .= "ORDER BY p.tanggal DESC";
-$result = mysqli_query($conn, $query);
+$query .= "ORDER BY tanggal DESC";
+$result = mysqli_query($koneksi, $query);
 
 // Hitung Total Pendapatan & Total Pesanan secara dinamis
 $sql_stats = "SELECT SUM(total_harga) as total_pendapatan, COUNT(*) as total_pesanan FROM pesanan";
-$stats_res = mysqli_query($conn, $sql_stats);
+$stats_res = mysqli_query($koneksi, $sql_stats);
 $stats = mysqli_fetch_assoc($stats_res);
 
 $totalPendapatan = $stats['total_pendapatan'] ?? 0;
@@ -64,13 +63,13 @@ $totalPesanan = $stats['total_pesanan'] ?? 0;
                     <div class="admin-dropdown" id="adminDropdown">
                         <div class="admin-dropdown-avatar"><i class="fa-solid fa-user"></i></div>
                         <a href="../kelola_akun.php">Kelola Akun</a>
-                        <a href="../logout.php" class="logout">Keluar</a>
+                        <a href="../../login/logout.php" class="logout">Keluar</a>
                     </div>
                     <div class="admin-avatar">
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="admin-info">
-                        <h4>Admin</h4>
+                        <h4><?= $_SESSION['nama_lengkap'] ?? 'Admin'; ?></h4>
                         <p>Administrator</p>
                     </div>
                     <i class="fa-solid fa-chevron-down admin-arrow" id="adminArrow"></i>
@@ -130,7 +129,7 @@ $totalPesanan = $stats['total_pesanan'] ?? 0;
                                 <tr>
                                     <td><?= $no++; ?></td>
                                     <td><?= $row['id_pesanan']; ?></td>
-                                    <td><?= $row['nama']; ?></td>
+                                    <td><?= $row['id_pelanggan'] ?? '-'; ?></td>
                                     <td><span class="status <?= $statusClass ?>"><?= $row['status']; ?></span></td>
                                     <td>Rp <?= number_format($row['total_harga'], 0, ',', '.'); ?></td>
                                     <td><?= date('d/m/Y H:i', strtotime($row['tanggal'])); ?></td>
@@ -138,12 +137,12 @@ $totalPesanan = $stats['total_pesanan'] ?? 0;
                                     <td>
                                         <button class="btn-detail" onclick="showDetail(
                                             '<?= $row['id_pesanan']; ?>',
-                                            '<?= $row['nama']; ?>',
+                                            '<?= $row['id_pelanggan']; ?>',
                                             '<?= $row['status']; ?>',
                                             '<?= number_format($row['total_harga'], 0, ',', '.'); ?>',
                                             '<?= date('d/m/Y H:i', strtotime($row['tanggal'])); ?>',
                                             '<?= ($row['waktu_selesai']) ? date('d/m/Y H:i', strtotime($row['waktu_selesai'])) : '-'; ?>',
-                                            '<?= number_format($row['ongkir'], 0, ',', '.'); ?>')">
+                                            '<?= number_format($row['ongkir'] ?? 0, 0, ',', '.'); ?>')">
                                             Lihat Detail
                                         </button>
                                     </td>
